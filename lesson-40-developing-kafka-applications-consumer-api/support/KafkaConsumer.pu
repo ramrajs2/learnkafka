@@ -1,0 +1,33 @@
+@startuml
+autonumber
+hide footbox
+participant JavaCode
+participant Map
+participant KafkaConsumer
+
+== Configuration ==
+create Map
+JavaCode -> Map: new
+JavaCode -> Map: put(K,V)
+activate Map
+deactivate Map
+
+== Initialization ==
+create KafkaConsumer
+JavaCode -> KafkaConsumer: new (Map)
+
+== Subscription ==
+JavaCode -> KafkaConsumer: subscribe(...)
+activate KafkaConsumer
+deactivate KafkaConsumer
+
+== Read Messages ==
+JavaCode -> KafkaConsumer: poll(timeout: long): ConsumerRecords
+activate KafkaConsumer
+deactivate KafkaConsumer
+== End ==
+JavaCode -> KafkaConsumer: close
+activate KafkaConsumer
+deactivate KafkaConsumer
+
+@enduml

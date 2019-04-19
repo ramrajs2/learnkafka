@@ -1,0 +1,28 @@
+@startuml
+autonumber
+hide footbox
+participant JavaCode
+participant Map
+participant KafkaProducer
+
+== Configuration ==
+create Map
+JavaCode -> Map: new
+JavaCode -> Map: put(K,V)
+activate Map
+deactivate Map
+
+== Initialization ==
+create KafkaProducer
+JavaCode -> KafkaProducer: new (Map)
+
+== Use ==
+JavaCode -\\ KafkaProducer: send(...)
+KafkaProducer -\\ JavaCode: ack
+
+== End ==
+JavaCode -> KafkaProducer: close
+activate KafkaProducer
+deactivate KafkaProducer
+
+@enduml
